@@ -2,7 +2,7 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { IOrderBook } from './index';
 
-const apiCall = {
+const webSockData = {
   apikey: '375274FD-4E03-4E94-8B01-A767D1D73D88', // This wouldn't normally be stored here, for simplicity
   heartbeat: false,
   subscribe_data_type: ["book20"],
@@ -18,7 +18,7 @@ const useOrderBook = (symbol: string) => {
     const ws = new WebSocket("wss://ws-sandbox.coinapi.io/v1/");
     ws.onopen = () => {
       ws.send(JSON.stringify({
-        ...apiCall, subscribe_filter_asset_id: [symbol],
+        ...webSockData, subscribe_filter_asset_id: [symbol],
       }));
     }
     ws.onmessage = (event) => {
