@@ -14,7 +14,8 @@ const useOrderBook = (symbol: string) => {
   const [buy, sell] = symbol.split('/');
   const [orderBook, setOrderBook] = useState<IOrderBook>();
   const snackbar = useSnackbar();
-  useEffect(() => {
+  
+  const orderBookDataSocket = (): WebSocket => {
     const ws = new WebSocket("wss://ws-sandbox.coinapi.io/v1/");
     ws.onopen = () => {
       ws.send(JSON.stringify({
@@ -36,6 +37,12 @@ const useOrderBook = (symbol: string) => {
         variant: 'error'
       })
     }
+
+    return ws;
+  }
+  
+  useEffect(() => {
+    const ws = orderBookDataSocket();
     return () => ws.close();
   }, []);
 
