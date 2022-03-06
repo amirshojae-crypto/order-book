@@ -4,7 +4,6 @@ import { IOrderBook } from './index';
 
 const apiCall = {
   apikey: '375274FD-4E03-4E94-8B01-A767D1D73D88', // This wouldn't normally be stored here, for simplicity
-  type: 'hello',
   heartbeat: false,
   subscribe_data_type: ["book20"],
   subscribe_filter_asset_id: ["BTC/USDT"],
