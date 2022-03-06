@@ -15,7 +15,7 @@ function App() {
   const symbol = params.crypto.replace('_', '/');
   return (
     <React.Suspense fallback={<CircularProgress />}>
-      <div style={{ display: 'flex', flexDirection: 'row', flexBasis: '10000px', height: '80vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
         <div style={{ flexGrow: 4 }}>
           <CandleStick symbol={symbol} />
         </div>
