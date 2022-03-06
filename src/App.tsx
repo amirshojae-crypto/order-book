@@ -1,25 +1,29 @@
+import { CircularProgress } from '@mui/material';
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import OrderBook from './components/OrderBook';
+import { useParams } from 'react-router-dom';
+
+const CandleStick = React.lazy(() => import('candlestick/App'));
 
 function App() {
+  const params = useParams();
+  if (!params.crypto) {
+    return <h4>Invalid</h4>
+  }
+
+  const symbol = params.crypto.replace('_', '/');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Suspense fallback={<CircularProgress />}>
+      <div style={{ display: 'flex', flexDirection: 'row', flexBasis: '10000px' }}>
+        <div style={{ flexGrow: 4 }}>
+          <CandleStick symbol={symbol} />
+        </div>
+        <div>
+          <OrderBook symbol={symbol} />
+        </div>
+      </div>
+    </React.Suspense>
   );
 }
 
